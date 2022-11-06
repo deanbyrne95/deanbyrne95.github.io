@@ -29,7 +29,11 @@
             "@env": [
                 "src/environments/environment"
             ]
-        }
+        },
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "strictPropertyInitialization": false
     },
     "files": [
         "src/main.ts",
