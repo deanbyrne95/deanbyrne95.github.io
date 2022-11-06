@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Navigation} from '@data/models/navigation.model';
 
 @Component({
     selector: 'app-header',
@@ -6,6 +7,11 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+    @Input() appName: string;
+    @Input() above: boolean;
+    @Input() sidebar: boolean;
+    @Input() routes: Navigation[];
 
     constructor() {
     }
