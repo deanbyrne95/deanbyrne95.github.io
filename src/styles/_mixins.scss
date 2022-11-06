@@ -1,0 +1,55 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+@use '@angular/material' as mat;
+
+@function legacy-get-theme($theme-or-color-config) {
+    @if is-theme-object($theme-or-color-config) {
+        @return $theme-or-color-config;
+    }
+    @return create-backwards-compatibility-theme((
+        _is-legacy-theme: true,
+        color: $theme-or-color-config
+    ));
+}
+
+@function is-theme-object($value) {
+    @return meta.type-of($value) == 'map' and (
+    map.has-key($value, color) or
+    map.has-key($value, density) or
+    map.has-key($value, typography) or
+    list.length($value) == 0
+  );
+}
+
+@function create-backwards-compatibility-theme($theme) {
+    @if not map.get($theme, color) {
+        @return $theme;
+    }
+    $color: map.get($theme, color);
+    @return map.merge($theme, $color);
+}
+
+@function custom-is-theme-object($value) {
+    @return meta.type-of($value) == 'map' and (
+    map.has-key($value, color) or
+    map.has-key($value, density) or
+    map.has-key($value, typography) or
+    list.length($value) == 0
+  );
+}
+
+@function get-custom-typography-config($theme-or-config, $default: null) {
+    @if not custom-is-theme-object($theme-or-config) {
+        @return $theme-or-config;
+    }
+    @if (map.has-key($theme-or-config, typography)) {
+        @return map.get($theme-or-config, typography);
+    }
+    @return $default;
+}
+
+@mixin palette-styles($palette, $hue: default, $contrast: default-contrast) {
+    background: mat.get-color-from-palette($palette, $hue);
+    color: mat.get-color-from-palette($palette, $contrast);
+}
