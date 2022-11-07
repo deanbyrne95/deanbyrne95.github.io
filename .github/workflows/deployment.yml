@@ -33,9 +33,6 @@ jobs:
             -   name: Build
                 run: npm run build:prod
 
-            -   name: Test
-                run: npm run test
-
             -   name: Upload Artifact
                 uses: actions/upload-artifact@main
                 with:
