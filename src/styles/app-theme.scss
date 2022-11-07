@@ -2,8 +2,7 @@
 @use 'src/styles/components/core/core' as core;
 @use 'src/styles/components/sidenav/sidenav' as sidenav;
 @use 'src/styles/components/toolbar/toolbar' as toolbar;
-@import 'src/styles/theme/light-theme';
-
+@use 'src/styles/variables' as variables;
 
 @mixin custom-material-theme($config-or-theme) {
     @include core.theme($config-or-theme);
@@ -13,10 +12,18 @@
 
 @mixin custom-material-typography($config-or-theme) {
     @include core.typography($config-or-theme);
+    @include sidenav.typography($config-or-theme);
+    @include toolbar.typography($config-or-theme);
 }
 
-@include custom-material-theme($light-theme);
-@include custom-material-typography($light-theme);
+@each $name, $theme in variables.$themes {
+    .#{$name} {
+        @include mat.core();
 
-@include mat.all-component-typographies($light-theme);
-@include mat.all-component-themes($light-theme);
+        @include custom-material-theme($theme);
+        @include custom-material-typography($theme);
+
+        @include mat.all-component-typographies($theme);
+        @include mat.all-component-themes($theme);
+    }
+}

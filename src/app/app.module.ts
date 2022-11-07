@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -37,7 +38,8 @@ import {SharedModule} from '@shared/shared.module';
         MatButtonModule,
         MatSidenavModule,
         MatMenuModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatRadioModule
     ],
     providers: [],
     bootstrap: [FrameworkComponent]

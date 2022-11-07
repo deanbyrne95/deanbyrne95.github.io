@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Data, NavigationEnd, Route, Router} from '@angular/router';
 import {Logger} from '@core/services/logs/log.service';
+import {SettingsService} from '@core/services/settings/settings.service';
 import {Navigation} from '@data/models/navigation.model';
 import packageInfo from 'package.json';
 import {filter} from 'rxjs';
@@ -24,16 +25,8 @@ export class FrameworkComponent implements OnInit {
     aboveHeader: boolean = true;
     aboveFooter: boolean;
 
-    constructor(private titleService: Title, private router: Router, private activatedRoute: ActivatedRoute) {
-        this.router.events
-            .pipe(filter(event => event instanceof NavigationEnd))
-            .subscribe(() => {
-                const route = this.getChild(this.activatedRoute);
-                route.data.subscribe((data: Data) => {
-                    const title = data['title'];
-                    this.titleService.setTitle(this.appName.concat(title ? ` | ${title}` : ''))
-                })
-            })
+    constructor(private titleService: Title, private router: Router, private activatedRoute: ActivatedRoute, private settingsService: SettingsService) {
+        this.initialise();
     }
 
     ngOnInit(): void {
@@ -59,9 +52,22 @@ export class FrameworkComponent implements OnInit {
         }
     }
 
+    private initialise(): void {
+        this.loadSettings();
+        this.router.events
+            .pipe(filter(event => event instanceof NavigationEnd))
+            .subscribe(() => {
+                const route = this.getChild(this.activatedRoute);
+                route.data.subscribe((data: Data) => {
+                    const title = data['title'];
+                    this.titleService.setTitle(this.appName.concat(title ? ` | ${title}` : ''))
+                })
+            })
+    }
+
     private loadSettings(): void {
         logger.debug('loading settings');
-        // this.sidebar = this.settingsService.settings.displaySidebar;
+        this.sidebar = this.settingsService.settings.displaySidebar;
         logger.info('settings loaded');
     }
 }

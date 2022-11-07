@@ -80,10 +80,13 @@
 @mixin theme($config-or-theme) {
     $config: theming.private-legacy-get-theme($config-or-theme);
     $color: mat.get-color-config($config);
-    $typography: mat.get-typography-config($config);
     $density: mat.get-density-config($config);
 
-    @include color($color);
-    @include typography($typography);
-    @include density($density);
+    @if $color != null {
+        @include color($color);
+    }
+
+    @if $density != null {
+        @include density($density);
+    }
 }
