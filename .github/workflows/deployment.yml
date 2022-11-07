@@ -46,6 +46,7 @@ jobs:
         runs-on: ubuntu-latest
 
         permissions:
+            contents: write
             pages: write
             id-token: write
 
@@ -65,6 +66,6 @@ jobs:
             -   name: Deploy to GitHub Pages
                 uses: JamesIves/github-pages-deploy-action@releases/v3
                 with:
-                    ssh-key: ${{ secrets.SSH_KEY }}
-                    branch: master
-                    folder: docs
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    BRANCH: master
+                    FOLDER: docs
