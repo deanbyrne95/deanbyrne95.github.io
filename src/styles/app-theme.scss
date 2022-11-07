@@ -1,0 +1,22 @@
+@use 'node_modules/@angular/material/index' as mat;
+@use 'src/styles/components/core/core' as core;
+@use 'src/styles/components/sidenav/sidenav' as sidenav;
+@use 'src/styles/components/toolbar/toolbar' as toolbar;
+@import 'src/styles/theme/light-theme';
+
+
+@mixin custom-material-theme($config-or-theme) {
+    @include core.theme($config-or-theme);
+    @include sidenav.theme($config-or-theme);
+    @include toolbar.theme($config-or-theme);
+}
+
+@mixin custom-material-typography($config-or-theme) {
+    @include core.typography($config-or-theme);
+}
+
+@include custom-material-theme($light-theme);
+@include custom-material-typography($light-theme);
+
+@include mat.all-component-typographies($light-theme);
+@include mat.all-component-themes($light-theme);
