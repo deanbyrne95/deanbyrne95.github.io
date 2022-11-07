@@ -1,0 +1,8 @@
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import 'src/styles/app-theme';
+
+/* You can add global styles to this file, and also import other style files */
+mat-icon.mat-icon {
+    font-family: 'Material Icons Round', serif;
+}
