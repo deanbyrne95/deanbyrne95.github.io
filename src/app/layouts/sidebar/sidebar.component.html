@@ -10,6 +10,27 @@
             <mat-icon>{{element.data?.['icon']}}</mat-icon>
             <span *ngIf="!minimised">{{element.data?.['title']}}</span>
         </button>
+        <span class="flex-fill"></span>
+        <button mat-button [ngClass]="{'mat-icon-button': minimised}" [matMenuTriggerFor]="settingsMenu" *ngIf="theme">
+            <mat-icon>settings</mat-icon>
+            <span *ngIf="!minimised">Settings</span>
+        </button>
+        <mat-menu #settingsMenu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="themeMenu">
+                <mat-icon>format_color_fill</mat-icon>
+                Change theme
+            </button>
+        </mat-menu>
+        <mat-menu #themeMenu="matMenu" yPosition="above">
+            <mat-radio-group [ngModel]="theme">
+                <button mat-menu-item *ngFor="let theme of themeButtons" (click)="setTheme(theme, !!theme)">
+                    <mat-radio-button [value]="theme">
+                        <mat-icon>format_color_fill</mat-icon>
+                        <span>{{theme | titlecase}}</span>
+                    </mat-radio-button>
+                </button>
+            </mat-radio-group>
+        </mat-menu>
     </mat-drawer>
     <mat-drawer-content>
         <app-header class="header" [appName]="appName" [sidebar]="!sidebar" *ngIf="above"></app-header>

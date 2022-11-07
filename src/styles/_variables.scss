@@ -1,2 +1,10 @@
+@import 'src/styles/theme/light-theme';
+@import 'src/styles/theme/dark-theme';
+
 $xsmall: 'max-width: 599px';
 $small: 'max-width: 959px';
+
+$themes: (
+    light: $light-theme,
+    dark: $dark-theme
+)
