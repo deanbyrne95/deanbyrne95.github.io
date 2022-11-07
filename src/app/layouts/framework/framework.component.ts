@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {Route, Router} from '@angular/router';
+import {ActivatedRoute, Data, NavigationEnd, Route, Router} from '@angular/router';
 import {Logger} from '@core/services/logs/log.service';
 import {Navigation} from '@data/models/navigation.model';
 import packageInfo from 'package.json';
+import {filter} from 'rxjs';
 
 const logger = new Logger('FrameworkComponent');
 
@@ -23,12 +24,25 @@ export class FrameworkComponent implements OnInit {
     aboveHeader: boolean = true;
     aboveFooter: boolean;
 
-    constructor(private titleService: Title, private router: Router) {
+    constructor(private titleService: Title, private router: Router, private activatedRoute: ActivatedRoute) {
+        this.router.events
+            .pipe(filter(event => event instanceof NavigationEnd))
+            .subscribe(() => {
+                const route = this.getChild(this.activatedRoute);
+                route.data.subscribe((data: Data) => {
+                    const title = data['title'];
+                    this.titleService.setTitle(this.appName.concat(title ? ` | ${title}` : ''))
+                })
+            })
     }
 
     ngOnInit(): void {
         this.titleService.setTitle(this.appName);
         this.listAllRoutes(this.router.config);
+    }
+
+    private getChild(activatedRoute: ActivatedRoute): ActivatedRoute {
+        return activatedRoute.firstChild ? this.getChild(activatedRoute.firstChild) : activatedRoute;
     }
 
     private listAllRoutes(config: Route[], parent: string = ''): void {
@@ -45,4 +59,9 @@ export class FrameworkComponent implements OnInit {
         }
     }
 
+    private loadSettings(): void {
+        logger.debug('loading settings');
+        // this.sidebar = this.settingsService.settings.displaySidebar;
+        logger.info('settings loaded');
+    }
 }
