@@ -38,7 +38,6 @@ jobs:
                 with:
                     name: github-pages
                     path: docs
-                    if-no-files-found: error
 
     deploy:
         name: Deploy
@@ -64,4 +63,4 @@ jobs:
                 with:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                     BRANCH: gh-pages
-                    FOLDER: docs
+                    FOLDER: "github-pages"
