@@ -1,5 +1,14 @@
 # deanbyrne95.github.io
 
+<p align="center">
+    <a href="https://github.com/deanbyrne95/deanbyrne95.github.io/actions/workflows/deployment.yml">
+        <img src="https://github.com/deanbyrne95/deanbyrne95.github.io/actions/workflows/deployment.yml/badge.svg" alt="Angular Deployment badge">
+    </a>
+    <a href="https://github.com/deanbyrne95/deanbyrne95.github.io/actions/workflows/pages/pages-build-deployment">
+        <img src="https://github.com/deanbyrne95/deanbyrne95.github.io/actions/workflows/pages/pages-build-deployment/badge.svg" alt="pages-build-deployment badge">
+    </a>
+</p>
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
 
 ## Development server
